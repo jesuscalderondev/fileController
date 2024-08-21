@@ -11,14 +11,18 @@ class Json():
         newDict = {}
         if parameters != []:
         
-
             for parameter in parameters:
                 param = getattr(self, parameter)
                 newDict[parameter] = param
         else:
-            newDict = self.dictionary
+            newDict = self.buildClass()
                 
         return newDict
+
+    def buildClass(self):
+        return self.__dict__
     
     def add(self, name:str, value:any):
-        self.dictionary[name] = value
+        setattr(self, name, value)
+
+    

@@ -30,6 +30,7 @@ class Model():
     def createObject(obj, dictionary):
         obj.id = uuid4()
         obj.createAt = obj.updateAt = datetime.now()
+        
         for atribute in dictionary:
             if atribute not in ["id", "createAt", "updateAt", "status"]:
                 if "id" in atribute.lower():

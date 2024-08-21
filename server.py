@@ -35,7 +35,8 @@ CORS(app, origins=['*'], supports_credentials=True)
 def index():
     return render_template('index.html')
 
-
+from app.domain.models import model
+model.createBase()
 
 if not os.path.exists("files/"):
     os.mkdir("files")

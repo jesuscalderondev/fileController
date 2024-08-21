@@ -81,7 +81,7 @@ class Service():
 
         return token
     
-    def createSecureName(name):
+    def createSecureName(self, name):
         return secure_filename(name)
     
     
