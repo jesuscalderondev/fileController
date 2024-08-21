@@ -1,0 +1,11 @@
+/env
+.env
+__pycache__/
+**/__pycache__/
+**/**/__pycache__/
+*.mp4
+.vscode
+.pytest_cache
+*.sqlite
+static/node_modules
+static/package-lock.json
