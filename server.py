@@ -40,6 +40,9 @@ model.createBase()
 
 if not os.path.exists("files/"):
     os.mkdir("files")
+    
+if not os.path.exists("backup/"):
+    os.mkdir("backup")
 
 if __name__ == "__main__":
     app.run(debug=True)

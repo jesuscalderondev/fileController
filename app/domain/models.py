@@ -17,7 +17,7 @@ class User(model.Base, Table):
     names = Column(VARCHAR(3000), nullable=False)
     email = Column(VARCHAR(300), nullable=False, unique=True)
     password = Column(VARCHAR(3000), nullable=False)
-    dependece = Column(Uuid, ForeignKey("Dependencies.id"))
+    dependenceId = Column(Uuid, ForeignKey("Dependencies.id"), nullable=False)
     permissions = relationship("Permission", backref="user")
     admin = Column(Boolean, nullable=False, default=False)
 
@@ -29,7 +29,7 @@ class File(model.Base, Table):
 
     __tablename__ = "Files"
 
-    num = Column(Integer, unique=True, autoincrement=True)
+    num = Column(Integer, nullable=False, default=1)
     extension = Column(VARCHAR(5), nullable=False)
     name = Column(VARCHAR(300), nullable=False)
     secureName = Column(VARCHAR(350), nullable=False)
@@ -75,3 +75,26 @@ class Clasification(model.Base, Table):
     acronym = Column(VARCHAR(5), nullable=False, unique=True)
     name = Column(VARCHAR(225), nullable=False)
     files = relationship("File", backref="clasification")
+    
+    def __init__(self, json:Json):
+        Model.createObject(self, json.buildClass())
+    
+class Log(model.Base, Table):
+    __tablename__ = "Logs"
+    
+    userId = Column(Uuid, ForeignKey("Users.id"), nullable=False)
+    fileId = Column(Uuid, ForeignKey("Files.id"), nullable=False)
+    acction = Column(VARCHAR(300), nullable=False)
+    
+    def __init__(self, json):
+        Model.createObject(self, json.buildClass())
+        
+class Request(model.Base, Table):
+    __tablename__ = "Requests"
+    
+    userId = Column(Uuid, ForeignKey("Users.id"))
+    description = Column(VARCHAR(3000), nullable=False)
+    status = Column(VARCHAR(50), nullable=False, default="Pendiente") #Permitido, #Procesado
+    
+    def __init__(self, json:Json):
+        Model.createObject(self, json.buildClass())

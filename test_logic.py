@@ -15,7 +15,7 @@ def testCreateUser():
 
         json = Json(dictionary)
 
-        app.registerNewUser(json)
+        app.registerUser(json)
         operation = True
     except Exception as e:
         print(e)

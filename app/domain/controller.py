@@ -12,10 +12,8 @@ class appServices(Service):
 
     #creation
 
-    def registerNewUser(self, json, admin=False):
+    def registerUser(self, json:Json):
         try:
-            if admin:
-                json.add("admin", admin)
 
             newUser = User(json)
             self.session.add(newUser)
@@ -28,16 +26,23 @@ class appServices(Service):
                 raise Exception("Uno de los datos proporcionados ya pertenece a un usuario, por favor, verificar la información.")
             raise Exception(f"No se pudo guardar el usuario, esto puede deberse a algún error de conexión o perdida de datos {e}")
 
-    def registerNewFile(self, json, file:any=None):
+    def registerFile(self, json, file:any=None):
         try:
+            
+            
             newFile = File(json)
+            num = self.session.query(File).filter(File.dependenceId == newFile.dependenceId, File.clasificationId == newFile.clasificationId).order_by(File.num.asc()).first()
+            
+            num = (num if num != None else 0) + 1
+            newFile.num = num
+            dependence = self.session.get(Dependence, newFile.dependenceId)
+            clasification = self.session.get(Clasification, newFile.clasificationId)
+            route = f"files/{dependence.directory}/{clasification.acronym}-{dependence.acronym}-{self.getNum(num)}-{newFile.secureName}.{newFile.extension}"
+            newFile.route = route
             self.session.add(newFile)
             self.session.commit()
 
             if file is not None:
-                dependence = self.session.get(Dependence, newFile.dependenceId)
-                clasification = self.session.get(Clasification, newFile.clasificationId)
-                route = f"files/{dependence.directory}/{dependence.acronym}-{clasification.acronym}-{newFile.num}-{newFile.secureName}.{newFile.extension}"
                 file.save(route)
 
             return "El archivo fue guardado de forma exitosa"
@@ -60,3 +65,19 @@ class appServices(Service):
             self.session.rollback()
             if isinstance(e, IntegrityError):
                 raise Exception("Esta área ya existe")
+            raise Exception(f"No se pudo guardar la dependencia, esto puede deberse a algún error de perdida de datos.\nDetalles tecnico: {e}")
+            
+    def registerClasification(self, json:Json):
+        try:
+            
+            newClasification = Clasification(json)
+            self.session.add(newClasification)
+            self.session.commit()
+            return "El tipo de documento fue creado exitosamente"
+        except Exception as e:
+            self.session.rollback()
+            if isinstance(e, IntegrityError):
+                raise Exception("Este tipo de documento ya existe")
+            raise Exception(f"No se pudo guardar, esto puede deberse a algún error de perdida de datos.\nDetalles tecnico: {e}")
+    
+    

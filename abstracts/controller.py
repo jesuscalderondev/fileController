@@ -84,6 +84,9 @@ class Service():
     def createSecureName(self, name):
         return secure_filename(name)
     
+    def getNum(self, num:int) -> str:
+        return "{:03d}".format(num)
+    
     
 class FunctionControler:
 
