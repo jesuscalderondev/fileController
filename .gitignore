@@ -7,5 +7,3 @@ __pycache__/
 .vscode
 .pytest_cache
 *.sqlite
-static/node_modules
-static/package-lock.json

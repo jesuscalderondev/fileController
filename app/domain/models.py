@@ -8,7 +8,7 @@ from abstracts.controller import Service
 from abstracts.objects import Json
 
 from abstracts.database import Model, Table
-model = Model("database", False)
+model = Model("database")
 
 class User(model.Base, Table):
 
