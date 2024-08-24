@@ -1,0 +1,48 @@
+{%extends 'template.html'%}
+{%block title%}Inicio{%endblock title%}
+{%block main%}
+<div class="container-fluid center-horizontal">
+
+    <div class="col-10 shadow m-1" id="myFiles">
+
+            <div class="input-group mb-3 col-6" id="creators">
+                <input type="text" class="form-control" placeholder="Nombre del archivo o extensión"
+                    aria-label="Nombre del archivo" aria-describedby="button">
+                <button class="btn btn-primary me-md-3" type="button" id="button"><i class="bi bi-search"></i></button>
+
+                
+            </div>
+
+
+        <div id="files">
+
+        </div>
+    </div>
+
+    <div class="col-2 m-1">
+        <h5>Notificaciones</h5>
+        <hr>
+        <div id="notifications">
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalPdf" aria-hidden="true" aria-labelledby="modalPdf"
+    tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="title-modal"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="render">
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock main%}
+{%block scripts%}
+<script src="{{url_for('static', filename='node_modules/pdfobject/pdfobject.js')}}"></script>
+<script src="{{url_for('static', filename='js/home.js')}}"></script>
+{%endblock scripts%}

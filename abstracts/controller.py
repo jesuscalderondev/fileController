@@ -8,10 +8,33 @@ import os
 from flask import jsonify, request, render_template
 from flask import session as cookies
 from dotenv import load_dotenv
+from extensions import mailer
+import google.generativeai as genai
+import os
+
+
+
+
+
 
 load_dotenv()
 
 class Service():
+    
+    mail = mailer
+    
+    genai.configure(api_key=os.environ.get("KEY_GEM"))
+    model = genai.GenerativeModel(model_name="gemini-pro")
+    
+    def questionAi(self, question:str):
+        try:
+            response = self.model.generate_content([question]).text
+            print(response)
+            return response
+        except Exception as e:
+            print(e)
+            raise Exception("No se puedo conectar")
+        
     
     def passwordHash(self, password:str):
         return generate_password_hash(password)
@@ -19,9 +42,12 @@ class Service():
     def passwordVerify(self, passHash:str, passUnHashed:str):
         return check_password_hash(passHash, passUnHashed)
     
-    def getUser(self, request):
+    def getUser(self, request=None):
         try:
-            token = request.headers.get('Authorization').split(" ")[1]
+            if request is not None:
+                token = request.headers.get('Authorization').split(" ")[1]
+            else:
+                token = cookies["token"]
             payload = decode(token, os.environ.get("SECRET_KEY"), algorithms=['HS256'])
             return UUID(payload.get('id'))
         except:
@@ -63,6 +89,7 @@ class Service():
 
                 try:
                     payload = decode(token, os.environ.get("SECRET_KEY"), algorithms=['HS256'])
+                    print(payload, "Este es el payload")
                 except (ExpiredSignatureError, InvalidTokenError) as e:
                     if isinstance(e, ExpiredSignatureError):
                         return render_template("expiredSession.html")
@@ -87,6 +114,24 @@ class Service():
     def getNum(self, num:int) -> str:
         return "{:03d}".format(num)
     
+    def getDateString(self, date:datetime):
+        
+        meses = ['enero', 'febrero', 'marzo', 'abril',
+            'mayo', 'junio', 'julio', 'agosto',
+            'septiembre', 'octubre', 'noviembre', 'diciembre'
+        ]
+
+
+        # Formato deseado: 25 de abril 2024 15:30
+        formate = "%d de %B %Y %H:%M"
+        month = meses[date.month - 1]
+        
+        minutes = "{:02d}".format(date.minute)
+        
+        dateFinish = f"{date.day} de {month} de {date.year} {date.hour}:{minutes}"
+
+        return dateFinish
+    
     
 class FunctionControler:
 
@@ -96,3 +141,4 @@ class FunctionControler:
             return {key : function(*parameters)}
         except Exception as e:
             raise Exception(e)
+    

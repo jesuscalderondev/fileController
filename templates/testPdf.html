@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+    <!-- Set the character set and viewport -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+      
+        #example1 {
+          
+            height: 30rem;
+            border: 1rem solid rgba(0, 0, 0, .1);
+          
+        }
+      
+    </style>
+
+    <!-- Set the title of the document -->
+    <title>Document</title>
+  
+</head>
+
+<body>
+  
+    <!-- Create a div with the ID "example1" to embed the PDF -->
+    <div id="example1"></div>
+
+    <!-- Include the PDFObject library -->
+    <script src="{{url_for('static', filename='node_modules/pdfobject/pdfobject.js')}}"></script>
+
+    <script>
+      
+        // Set options for PDFObject, including a fallback link in case PDF embedding is not supported
+        var options = {
+        
+            fallbackLink: "<p>This is a <a href='https://example.com/'>fallback link</a></p>"
+        
+        };
+
+        // Embed the PDF (1.pdf) into the div with ID "example1" using PDFObject and the specified options
+        PDFObject.embed("{{url_for('static', filename='pdf/dominio-web-factura.pdf')}}", "#example1", options);
+      
+    </script>
+
+</body>
+
+</html>

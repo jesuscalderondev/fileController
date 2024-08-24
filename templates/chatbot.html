@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='scss/custom.css')}}">
+    <link rel="stylesheet"
+        href="{{url_for('static', filename='node_modules/bootstrap-icons/font/bootstrap-icons.css')}}">
+    <title>AI-rchive</title>
+</head>
+
+<body class="center-absolute bg-dark">
+
+    <div class="container-fluid row center-absolute text-white">
+
+        <div class="col-6 bg-dark shadow rounded p-3">
+
+
+            <h1 class="text-center">
+                <i class="bi bi-diagram-3-fill"></i> <a href="/routes/home" class="navbar-brand">AI-rchive</a>
+            </h1>
+
+            <form action="" method="post" class="center-vertical" id="form">
+                <div id="files">
+                </div>
+                <div class="input-group">
+                    <input name="question" id="question" autocomplete="off" type="text" class="form-control" placeholder="Escribe tu pregunta"
+                        aria-label="Recipient's username" aria-describedby="submit">
+                    <button class="btn btn-primary" type="submit" id="submit"><i class="bi bi-send"></i></button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+<script src="{{url_for('static', filename='node_modules/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<script src="{{url_for('static', filename='node_modules/bootstrap/dist/js/bootstrap.js')}}"></script>
+<script src="{{url_for('static', filename='node_modules/bootstrap/dist/js/bootstrap.esm.js')}}"></script>
+<script src="{{url_for('static', filename='node_modules/bootstrap/dist/js/bootstrap.bundle.js')}}"></script>
+<script src="{{url_for('static', filename='js/toast.js')}}"></script>
+<script src="{{url_for('static', filename='js/provider.js')}}"></script>
+<script src="{{url_for('static', filename='js/chatBot.js')}}"></script>
+</html>

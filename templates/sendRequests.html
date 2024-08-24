@@ -1,0 +1,98 @@
+{%extends 'template.html'%}
+{%block title%}Solicitud{%endblock title%}
+{%block main%}
+<div class="container-fluid" id="files">
+    <form method="post" enctype="multipart/form-data" id="form">
+        <div class="row m-3">
+            ¿Qué tipo de actualización documental desea realizar? <span></span>
+        </div>
+        <div class="row m-3">
+            <div class="form-check col-3">
+                <input required name="action" class="form-check-input" type="radio" value="create" id="create">
+                <label class="form-check-label" for="create">
+                    Creación
+                </label>
+            </div>
+
+            <div class="form-check col-3">
+                <input required name="action" class="form-check-input" type="radio" value="edit" id="edit">
+                <label class="form-check-label" for="edit">
+                    Modificación
+                </label>
+            </div>
+            <div class="form-check col-3">
+                <input required name="action" class="form-check-input" type="radio" value="delete" id="delete">
+                <label class="form-check-label" for="delete">
+                    Eliminación
+                </label>
+            </div>
+
+            <div class="form-check col-3">
+                <input required name="action" class="form-check-input" type="radio" value="edit2" id="edit2">
+                <label class="form-check-label" for="edit2">
+                    Reclasificación / cambio de código
+                </label>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+
+            <div class="mb-3 col-6">
+                <label for="dependence" class="form-label">Área</label>
+                <select name="dependenceId" id="dependence" class="form-control">
+                    <option disabled selected>-- Seleccione un área --</option>
+                </select>
+            </div>
+
+            <div class="mb-3 col-6">
+                <label for="clasification" class="form-label">Tipo de documento</label>
+                <select name="clasificationId" id="clasification" class="form-control">
+                    <option disabled selected>-- Seleccione el tipo --</option>
+                </select>
+            </div>
+        </div>
+        <hr>
+
+        <div class="row m-3">
+            Escriba el código y el nombre del documento:
+        </div>
+        <div class="row m-3">
+            <div class="mb-3">
+                <label for="formGroupExampleInput" class="form-label">Si es una creación, escriba solo el nombre</label>
+                <input type="text" class="form-control" name="nameFile" id="formGroupExampleInput"
+                    placeholder="Ejemplo: 001-Contrato">
+            </div>
+        </div>
+        <hr>
+        <div class="row m-3">
+            Indique las razones por las cuales desea crear, modificar o eliminar el documento.
+            <br>
+            si es una modificación, explique qué cambios tuvo el documento.
+            <div class="mb-3">
+                <textarea name="description" type="text" class="form-control""></textarea>
+            </div>
+        </div>
+
+        <hr>
+        <div class="row m-3">
+            Indique los correos electrónicos de las personas con quienes desea compartir el documento, una vez se encuentre actualizado:
+            <div class="mb-3">
+                <textarea name="emails" type="text" class="form-control"></textarea>
+            </div>
+        </div>
+
+        <div class="row m-3">
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Archivo (excel, word o pdf). Opcional</label>
+                <input class="form-control" type="file" id="formFile" name="file" accept=".xlsx, .xls, .docx, .doc, .pdf">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success m-3">Enviar</button>
+    </form>
+</div>
+{%endblock main%}
+{%block scripts%}
+<script src="{{url_for('static', filename='js/provider.js')}}"></script>
+<script src="{{url_for('static', filename='js/sendRequests.js')}}"></script>
+{%endblock scripts%}

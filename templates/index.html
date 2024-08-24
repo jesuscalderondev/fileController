@@ -1,11 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenida</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='scss/custom.css')}}">
+    <link rel="stylesheet"
+        href="{{url_for('static', filename='node_modules/bootstrap-icons/font/bootstrap-icons.css')}}">
+    <title>LOGIN</title>
 </head>
-<body>
-    Esta es la página inicial
+
+<body class="center-absolute">
+
+    <div class="container-fluid row center-absolute">
+
+        <div class="col-6 bg-white shadow rounded p-3">
+
+            <h1 class="text-center">
+                Iniciar sesión
+            </h1>
+
+            <form action="" method="post" class="center-vertical">
+                <div class="input-group mb-3 mt-3">
+                    <input type="text" class="form-control form-control" id="email" placeholder="Correo electrónico"
+                        aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <span class="input-group-text bi bi-person-circle" id="basic-addon2"></span>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control form-control" id="password" placeholder="Contraseña"
+                        aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <span class="input-group-text bi bi-key-fill" id="basic-addon2"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary mb-3 fw-semibold" id="loginBtn">Ingresar</button>
+            </form>
+
+        </div>
+
+    </div>
+
 </body>
+<script src="{{url_for('static', filename='node_modules/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<script src="{{url_for('static', filename='node_modules/bootstrap/dist/js/bootstrap.js')}}"></script>
+<script src="{{url_for('static', filename='node_modules/bootstrap/dist/js/bootstrap.esm.js')}}"></script>
+<script src="{{url_for('static', filename='node_modules/bootstrap/dist/js/bootstrap.bundle.js')}}"></script>
+<script src="{{url_for('static', filename='js/toast.js')}}"></script>
+<script src="{{url_for('static', filename='js/provider.js')}}"></script>
+<script src="{{url_for('static', filename='js/login.js')}}"></script>
+
 </html>

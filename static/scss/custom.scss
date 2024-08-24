@@ -1,0 +1,108 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+.center-vertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 2;
+}
+
+
+.center-absolute {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 2;
+    height: 100vh;
+}
+
+.center-horizontal {
+    @extend .center-vertical;
+    flex-direction: row;
+}
+
+main {
+    margin-top: 4rem;
+}
+
+@keyframes show {
+    from {
+        opacity: 0;
+        scale: 25%;
+    }
+
+    to {
+        opacity: 1;
+        scale: 100%;
+    }
+}
+
+.file {
+    view-timeline-name: --image;
+    view-timeline-axis: block;
+
+    animation-timeline: --image;
+    animation-name: show;
+
+    animation-range: entry 0% cover 10%;
+    animation-fill-mode: both;
+
+    background-color: $gray-200;
+    border-radius: .2rem;
+    padding: .5rem;
+    transition: all ease .4s;
+
+    margin-bottom: .2rem;
+
+    &:hover {
+        background-color: $blue-100;
+    }
+
+}
+
+#files,
+#notifications {
+    height: calc(100vh - 9rem);
+    overflow-y: scroll;
+    padding: 1rem;
+    scrollbar-width: none;
+}
+
+* {
+    scrollbar-width: none;
+}
+
+.actions {
+    button {
+        margin-left: 4px;
+    }
+}
+
+.message-bubble1 {
+    position: relative;
+    display: block;
+    padding: 10px;
+    border-radius: 10px 10px 0px 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.message-bubble2{
+    @extend .message-bubble1;
+    border-radius: 10px 10px 10px 0px;
+}
+
+
+.message-bubble2::before, .message-bubble1::before{
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -10px;
+}
+
+.notify{
+    text-decoration: none;
+    color: $dark;
+}

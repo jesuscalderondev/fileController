@@ -1,0 +1,21 @@
+<!-- index.html -->
+<table id="excel-data"></table>
+
+<script src="{{url_for('static', filename='node_modules/exceljs/dist/exceljs.min.js')}}"></script>
+<script>
+
+const ExcelJS = require("{{url_for('static', filename='node_modules/exceljs/exceljs.js')}}");
+
+  const workbook = new ExcelJS.Workbook();
+  workbook.read("{{url_for('static', filename='pdf/PR-JUR-001-Ejemplo_Excel.xlsx')}}", (err, workbook) => {
+    const worksheet = workbook.getWorksheet('Sheet1');
+    const table = document.getElementById('excel-data');
+    worksheet.eachRow((row, rowNumber) => {
+      const rowHTML = '';
+      row.eachCell((cell, cellNumber) => {
+        rowHTML += `<td>${cell.value}</td>`;
+      });
+      table.innerHTML += `<tr>${rowHTML}</tr>`;
+    });
+  });
+</script>

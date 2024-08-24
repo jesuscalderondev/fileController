@@ -8,22 +8,34 @@ class FMail:
     mail = Mail()
     sender = os.environ['MAIL_USERNAME']
 
-    def sendMessage(self, name:str, subject:str, body:str, recipients:list, response, failed):
+    def sendMail(self, data:dict, archive=None):
         try:
-            html_content = f"""
-                            <html>
-                            <body>
-                                <h1>¡Hola! {name}</h1>
-                                <p>{body}</p>
-                                <hr>
-                                <footer>Este es un correo generado de manera automática, por favor evite responder, si presenta alguna duda, por favor escriba a los canales de comunicación</footer>
-                            </body>
-                            </html>
-                            """
-            message = Message(subject, recipients, html=html_content, sender=self.sender)
+            subject = data["subject"]
+            recipients = data["recipients"]
+            body = data["body"]
+            message = Message(subject = subject, sender= os.environ["MAIL_USERNAME"], recipients=recipients)
+            message.body = body
+
+            if archive != None:
+                extension = archive.filename.split(".")[-1]
+                if extension in ["xlsx", "xls"]:
+                    typeFile = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                elif extension in ["pdf"]:
+                    typeFile = 'application/pdf'
+                elif extension in ["xdoc, doc"]:
+                    typeFile = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                message.attach(archive.filename, typeFile, archive.read())
+                
             self.mail.send(message)
-            return response
         except Exception as e:
             print(e)
-            raise Exception(failed)
+            raise Exception()
+        
+def getWorkSpace():
+    return os.environ["WORKSPACE"]
+
+def getBackUp():
+    return os.environ["BACKUP"]
+
+mailer = FMail()
 

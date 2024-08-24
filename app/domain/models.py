@@ -15,6 +15,7 @@ class User(model.Base, Table):
     __tablename__ = "Users"
 
     names = Column(VARCHAR(3000), nullable=False)
+    position = Column(VARCHAR(225), nullable=False)
     email = Column(VARCHAR(300), nullable=False, unique=True)
     password = Column(VARCHAR(3000), nullable=False)
     dependenceId = Column(Uuid, ForeignKey("Dependencies.id"), nullable=False)
@@ -37,6 +38,7 @@ class File(model.Base, Table):
     allowedUsers = relationship("Permission", backref="file")
     dependenceId = Column(Uuid, ForeignKey("Dependencies.id"), nullable=False)
     clasificationId = Column(Uuid, ForeignKey("Clasifications.id"), nullable=False)
+    view = Column(Boolean, nullable=False, default=True)
 
     def __init__(self, json:Json):
         Model.createObject(self, json.buildClass())
@@ -47,9 +49,11 @@ class Permission(model.Base, Table):
     __tablename__ = "Permissions"
 
     userId = Column(Uuid, ForeignKey("Users.id"), nullable=False)
-    fileId = Column(Uuid, ForeignKey("Files.id"), nullable=False)
+    fileId = Column(Uuid, ForeignKey("Files.id"))
     edit = Column(Boolean, nullable=False)
     delete = Column(Boolean, nullable=False)
+    create = Column(Boolean, nullable=False)
+    download = Column(Boolean, nullable=False)
 
     def __init__(self, json:Json):
         Model.createObject(self, json.buildClass())
@@ -84,7 +88,7 @@ class Log(model.Base, Table):
     
     userId = Column(Uuid, ForeignKey("Users.id"), nullable=False)
     fileId = Column(Uuid, ForeignKey("Files.id"), nullable=False)
-    acction = Column(VARCHAR(300), nullable=False)
+    action = Column(VARCHAR(300), nullable=False)
     
     def __init__(self, json):
         Model.createObject(self, json.buildClass())
@@ -94,7 +98,30 @@ class Request(model.Base, Table):
     
     userId = Column(Uuid, ForeignKey("Users.id"))
     description = Column(VARCHAR(3000), nullable=False)
+    edit2 = Column(Boolean, nullable=False, default=False)
+    edit = Column(Boolean, nullable=False, default=False)
+    delete = Column(Boolean, nullable=False, default=False)
+    create = Column(Boolean, nullable=False, default=False)
+    download = Column(Boolean, nullable=False, default=False)
+    nameFile = Column(VARCHAR(225), nullable=False)
+    routeFileRequest = Column(VARCHAR(3000), unique=True, nullable=True)
+    dependenceId = Column(Uuid, ForeignKey("Dependencies.id"), nullable=False)
+    clasificationId = Column(Uuid, ForeignKey("Clasifications.id"), nullable=False)
+    emails = Column(VARCHAR(3000), nullable=False)
     status = Column(VARCHAR(50), nullable=False, default="Pendiente") #Permitido, #Procesado
+    
+    def __init__(self, json:Json):
+        Model.createObject(self, json.buildClass())
+        
+class Notification(model.Base, Table):
+    
+    __tablename__ = "Notifications"
+    
+    description = Column(VARCHAR(3000), nullable=False)
+    requestId = Column(Uuid, ForeignKey("Requests.id"))
+    permission = Column(Uuid, ForeignKey("Permissions.id"))
+    emit = Column(Uuid, ForeignKey("Users.id"), nullable=False)
+    recept = Column(Uuid, ForeignKey("Users.id"), nullable=False)
     
     def __init__(self, json:Json):
         Model.createObject(self, json.buildClass())

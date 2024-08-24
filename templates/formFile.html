@@ -1,0 +1,38 @@
+{%extends 'template.html'%}
+{%block title%}Subir archivo{%endblock title%}
+{%block main%}
+<div class="container-fluid">
+    <form method="post" enctype="multipart/form-data" id="form">
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Archivo (excel, word o pdf)</label>
+            <input class="form-control" type="file" id="formFile" name="file" accept=".xlsx, .xls, .docx, .doc, .pdf">
+        </div>
+
+        <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Nombre del archivo</label>
+            <input type="text" class="form-control" name="name" id="formGroupExampleInput" placeholder="Ejemplo: Plantilla de contrato">
+        </div>
+
+        <div class="mb-3">
+            <label for="clasification" class="form-label">Tipo de documento</label>
+            <select name="clasificationId" id="clasification" class="form-control">
+                <option disabled selected>-- Seleccione el tipo --</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="dependence" class="form-label">Área</label>
+            <select name="dependenceId" id="dependence" class="form-control">
+                <option disabled selected>-- Seleccione un área --</option>
+            </select>
+        </div>
+
+        <button type="submit" id="send" class="btn btn-primary">Agregar</button>
+    </form>
+</div>
+
+{%endblock main%}
+{%block scripts%}
+<script src="{{url_for('static', filename='js/provider.js')}}"></script>
+<script src="{{url_for('static', filename='js/formFile.js')}}"></script>
+{%endblock scripts%}

@@ -2,6 +2,7 @@ from app.domain.controller import appServices
 from app.domain.models import *
 from abstracts.objects import Json
 
+
 app = appServices()
 session = model.Session
 
@@ -12,7 +13,7 @@ dependencies = {
     "GER" : "Gerencia",
     "ADF" : "Administración y Financiera",
     "GHU" : "Gestión Humana",
-    "TEC" :"Técnica",
+    "TEC" : "Técnica",
     "SST" : "Seguridad y Salud en el Trabajo",
     "JUR" : "Jurídica",
     "INF" : "Sistemas",
@@ -44,7 +45,6 @@ clasifications = {
     "M" : "Manual",
     "C" : "Código",
     "D" : "Política, reglamento, plan, programa, protocolo, caracterizaciones",
-    "PR" : "Programa",
     "R" : "Registro (Formato)"
 }
 
@@ -66,14 +66,25 @@ users = [
         "admin" : True,
         "email" : "admin@conint.com",
         "password" : app.passwordHash("pass"),
+        "position" : "Auxiliar",
         "dependenceId" : session.query(Dependence).filter(Dependence.acronym == "CIN").first().id
     },
     
     {
         "names" : "Administrador Gerencia",
-        "admin" : False,
-        "email" : "admin@ger.com",
+        "admin" : True,
+        "email" : "jesusmcalderonv2002@gmail.com",
         "password" : app.passwordHash("pass"),
+        "position" : "Distribuidor",
+        "dependenceId" : session.query(Dependence).filter(Dependence.acronym == "GER").first().id
+    },
+    
+    {
+        "names" : "Auxiliar de gerencia",
+        "admin" : False,
+        "email" : "aux@ger.com",
+        "password" : app.passwordHash("pass"),
+        "position" : "Auxiliar",
         "dependenceId" : session.query(Dependence).filter(Dependence.acronym == "GER").first().id
     }
 ]
@@ -85,20 +96,3 @@ for user in users:
     json = Json(user)
     app.registerUser(json)
     
-#Register all Files
-
-files = [
-    {
-        "extension" : "xlsx",
-        "name" : "Plantillas de pago",
-        "secureName" : app.createSecureName("Plantillas de pago"),
-        "dependenceId" : session.query(Dependence).filter(Dependence.acronym == "GER").first().id,
-        "clasificationId" : session.query(Clasification).filter(Clasification.acronym == "P").first().id
-    }
-]
-
-for fileA in files:
-    
-    json = Json(fileA)
-    
-    app.registerFile(json)
