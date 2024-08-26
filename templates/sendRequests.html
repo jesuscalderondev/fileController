@@ -38,15 +38,32 @@
         <div class="row">
 
             <div class="mb-3 col-6">
-                <label for="dependence" class="form-label">Área</label>
+                <label for="dependence" class="form-label">Área a la que pertenece el documento</label>
                 <select name="dependenceId" id="dependence" class="form-control">
                     <option disabled selected>-- Seleccione un área --</option>
                 </select>
             </div>
 
             <div class="mb-3 col-6">
-                <label for="clasification" class="form-label">Tipo de documento</label>
+                <label for="clasification" class="form-label">Tipo de documento actual</label>
                 <select name="clasificationId" id="clasification" class="form-control">
+                    <option disabled selected>-- Seleccione el tipo --</option>
+                </select>
+            </div>
+        </div>
+        <hr>
+        <div class="row" hidden id="noView">
+
+            <div class="mb-3 col-6">
+                <label for="dependence" class="form-label">Área nueva</label>
+                <select name="newDependence" id="newDependence" class="form-control">
+                    <option disabled selected>-- Seleccione un área --</option>
+                </select>
+            </div>
+
+            <div class="mb-3 col-6">
+                <label for="clasification" class="form-label">Tipo de documento actual</label>
+                <select name="newClasification" id="newClasification" class="form-control">
                     <option disabled selected>-- Seleccione el tipo --</option>
                 </select>
             </div>
@@ -93,6 +110,5 @@
 </div>
 {%endblock main%}
 {%block scripts%}
-<script src="{{url_for('static', filename='js/provider.js')}}"></script>
 <script src="{{url_for('static', filename='js/sendRequests.js')}}"></script>
 {%endblock scripts%}

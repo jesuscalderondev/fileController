@@ -1,5 +1,6 @@
 from app.domain.controller import appServices
 from abstracts.objects import Json
+import traceback
 
 app = appServices()
 
@@ -18,7 +19,7 @@ def testCreateUser():
         app.registerUser(json)
         operation = True
     except Exception as e:
-        print(e)
+        print(traceback.format_exc())
 
     assert operation
 
@@ -37,5 +38,5 @@ def testCreateDependence():
 
         assert True
     except Exception as e:
-        print(e)
+        print(traceback.format_exc())
         assert False

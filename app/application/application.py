@@ -12,8 +12,9 @@ class Application():
         data = Json(request.get_json())
         return FunctionControler.operate(self.service.login, [data.email, data.password], "token")
     
-    def getFiles(self):
-        return FunctionControler.operate(self.service.getFiles, key="files")
+    def getFiles(self, state:int):
+        view = state == 1 
+        return FunctionControler.operate(self.service.getFiles, [view],key="files")
     
 
     def getClasifications(self):
@@ -31,7 +32,7 @@ class Application():
         return FunctionControler.operate(self.service.registerFile, [json, archive])
     
     def getDocument(self, id:str, down:int):
-        return self.service.getDocument(UUID(id), down == 1)
+        return self.service.getDocument(UUID(id), down)
     
     def getPermissions(self):
         return FunctionControler.operate(self.service.getPermissions, key="permissions")
@@ -55,10 +56,21 @@ class Application():
         return FunctionControler.operate(self.service.getDetailsRequest, [UUID(id)], "request")
     
     def responseRequest(self, request):
-        return FunctionControler.operate(self.service.responseRequest, [Json(request.get_json())])
+        file = request.files["file"]
+        json = Json(request.form.to_dict())
+        return FunctionControler.operate(self.service.responseRequest, [json, file])
     
     def deleteFile(self, id):
         return FunctionControler.operate(self.service.deleteFile, [UUID(id)])
     
     def getLogs(self):
         return FunctionControler.operate(self.service.getLogs, key="logs")
+
+    def getDocumentWithDirectory(self, directory:str, name:str):
+        return self.service.getDocumentWithDirectory(directory, name)
+    
+    def backArchive(self, id):
+        return FunctionControler.operate(self.service.backArchive, [UUID(id)])
+    
+    def downloadHistory(self):
+        return self.service.downloadHistory()

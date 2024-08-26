@@ -8,7 +8,7 @@ from abstracts.controller import Service
 from abstracts.objects import Json
 
 from abstracts.database import Model, Table
-model = Model("database")
+model = Model("database", False)
 
 class User(model.Base, Table):
 
@@ -35,6 +35,7 @@ class File(model.Base, Table):
     name = Column(VARCHAR(300), nullable=False)
     secureName = Column(VARCHAR(350), nullable=False)
     route = Column(VARCHAR(3000), nullable=False, unique=True)
+    routeOld = Column(VARCHAR(3000), unique=True)
     allowedUsers = relationship("Permission", backref="file")
     dependenceId = Column(Uuid, ForeignKey("Dependencies.id"), nullable=False)
     clasificationId = Column(Uuid, ForeignKey("Clasifications.id"), nullable=False)
@@ -87,7 +88,7 @@ class Log(model.Base, Table):
     __tablename__ = "Logs"
     
     userId = Column(Uuid, ForeignKey("Users.id"), nullable=False)
-    fileId = Column(Uuid, ForeignKey("Files.id"), nullable=False)
+    fileId = Column(Uuid, ForeignKey("Files.id"))
     action = Column(VARCHAR(300), nullable=False)
     
     def __init__(self, json):
@@ -104,9 +105,11 @@ class Request(model.Base, Table):
     create = Column(Boolean, nullable=False, default=False)
     download = Column(Boolean, nullable=False, default=False)
     nameFile = Column(VARCHAR(225), nullable=False)
-    routeFileRequest = Column(VARCHAR(3000), unique=True, nullable=True)
+    routeFileRequest = Column(VARCHAR(3000), nullable=True)
     dependenceId = Column(Uuid, ForeignKey("Dependencies.id"), nullable=False)
     clasificationId = Column(Uuid, ForeignKey("Clasifications.id"), nullable=False)
+    newDependence = Column(Uuid, ForeignKey("Dependencies.id"))
+    newClasification = Column(Uuid, ForeignKey("Clasifications.id"))
     emails = Column(VARCHAR(3000), nullable=False)
     status = Column(VARCHAR(50), nullable=False, default="Pendiente") #Permitido, #Procesado
     

@@ -1,6 +1,7 @@
 from flask_mail import Mail, Message
 import os
 from dotenv import load_dotenv
+import traceback
 
 load_dotenv()
 
@@ -12,6 +13,7 @@ class FMail:
         try:
             subject = data["subject"]
             recipients = data["recipients"]
+            print(recipients)
             body = data["body"]
             message = Message(subject = subject, sender= os.environ["MAIL_USERNAME"], recipients=recipients)
             message.body = body
@@ -29,7 +31,8 @@ class FMail:
             self.mail.send(message)
         except Exception as e:
             print(e)
-            raise Exception()
+            print(traceback.format_exc())
+            pass
         
 def getWorkSpace():
     return os.environ["WORKSPACE"]

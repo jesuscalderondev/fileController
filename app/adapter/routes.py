@@ -38,10 +38,12 @@ def chatBot():
 
 # Apis---------------------------------
 
-@routes.route('getFiles', methods = ['GET'])
+@routes.route('getFiles/<int:state>', methods = ['GET'])
 @app.service.jwtRequired
-def getFiles():
-    return EndPoint(app.getFiles).response
+def getFiles(state):
+    return EndPoint(app.getFiles, state).response
+
+
 
 @routes.route('getClasifications', methods = ['GET'])
 @app.service.jwtRequired
@@ -62,6 +64,12 @@ def registerFile():
 @app.service.jwtRequired
 def getDocument(id, down):
     return app.getDocument(id, down)
+
+@routes.route('getDocumentUrl/<string:directory>/<string:name>', methods = ['GET'])
+@app.service.jwtRequired
+def getDocumentWithDirectory(directory, name):
+    print(directory, name)
+    return app.getDocumentWithDirectory(directory, name)
 
 @routes.route('getPermissions', methods = ['GET'])
 @app.service.jwtRequired
@@ -108,7 +116,22 @@ def deleteFile(id):
 def log():
     return render_template('log.html')
 
+@routes.route('deleteds', methods = ['GET'])
+@app.service.adminRequired
+def deleteds():
+    return render_template('deleteds.html')
+
 @routes.route('getLogs', methods = ['GET'])
 @app.service.jwtRequired
 def getLogs():
     return EndPoint(app.getLogs).response
+
+@routes.route('backArchive/<string:fileId>', methods = ['GET'])
+@app.service.jwtRequired
+def backArchive(fileId):
+    return EndPoint(app.backArchive, fileId).response
+
+@routes.route('downloadHistory', methods = ['GET'])
+@app.service.adminRequired
+def downloadHistory():
+    return app.downloadHistory()

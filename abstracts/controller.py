@@ -11,11 +11,7 @@ from dotenv import load_dotenv
 from extensions import mailer
 import google.generativeai as genai
 import os
-
-
-
-
-
+import traceback
 
 load_dotenv()
 
@@ -32,7 +28,7 @@ class Service():
             print(response)
             return response
         except Exception as e:
-            print(e)
+            print(traceback.format_exc())
             raise Exception("No se puedo conectar")
         
     
@@ -121,16 +117,17 @@ class Service():
             'septiembre', 'octubre', 'noviembre', 'diciembre'
         ]
 
-
-        # Formato deseado: 25 de abril 2024 15:30
-        formate = "%d de %B %Y %H:%M"
         month = meses[date.month - 1]
         
         minutes = "{:02d}".format(date.minute)
+        seconds = "{:02d}".format(date.second)
         
-        dateFinish = f"{date.day} de {month} de {date.year} {date.hour}:{minutes}"
+        dateFinish = f"{date.day} de {month} de {date.year} {date.hour}:{minutes}:{seconds}"
 
         return dateFinish
+    
+    def getMails(self, mails:str) -> list:
+        return mails.split(", ")
     
     
 class FunctionControler:

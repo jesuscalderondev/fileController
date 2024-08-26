@@ -2,7 +2,7 @@
 {%block title%}Detalles de notificación{%endblock title%}
 {%block main%}
 <div class="container-fluid">
-    <div class="center-absolute row">
+    <div class="center-absolute row m-3">
         <h3 class="text-center">Detalles de la solicitud</h3>
         <hr>
 
@@ -12,15 +12,18 @@
         <h4 class="text-start">Permiso</h4>
         <p class="text-start" id="permission"></p>
         <br>
-        <h4 class="text-start">Nombre del archivo</h4>
+        <h4 class="text-start">Nombre del futuro archivo</h4>
         <p class="text-start" id="name"></p>
         <br>
         <h4 class="text-start">Correos a enviar</h4>
         <p class="text-start" id="emails"></p>
 
-        <form method="post" id="form">
+        <h4 class="text-start" id="archive">Archivo de </h4>
+        <p class="text-start" id="containerA"></p>
 
-            <div class="row m-3">
+        <form method="post" id="form" enctype="multipart/form-data">
+
+            <div class="row">
                 <div class="form-check col-3">
                     <input required name="action" class="form-check-input" type="radio" value="accept" id="accept">
                     <label class="form-check-label" for="accept">
@@ -36,10 +39,15 @@
                 </div>
             </div>
 
-            <div class="row m-3">
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Archivo (excel, word o pdf) definitivo</label>
+                <input class="form-control" type="file" id="formFile" name="file" accept=".xlsx, .xls, .docx, .doc, .pdf">
+            </div>
+
+            <div class="row">
                 Indique las razones por las cuales se rechaza esta solicitud, en caso de aprobarla, omita esta casilla
                 <div class="mb-3">
-                    <textarea name="details" id="details" type="text" class="form-control"></textarea>
+                    <textarea required name="details" id="details" type="text" class="form-control"></textarea>
                 </div>
             </div>
 

@@ -1,5 +1,4 @@
 const production = window.location.origin + "/";
-console.log(production);
 var color = "#005ff1";
 
 class Provider {
@@ -16,7 +15,7 @@ class Provider {
 
     graphic = null;
 
-    constructor(route, body, button, method, func, auth = false, parameters = {}, multiplatform = false, showAlert=false) {
+    constructor(route, body, button, method, func, auth = false, parameters = {}, multiplatform = false, showAlert = false) {
         this.route = route;
 
         if (body != null) {
@@ -52,23 +51,28 @@ class Provider {
                     toast.show();
 
                 } else {
-                    this.parameters["data"] = data;
+
+                    if (this.parameters != undefined) {
+                        this.parameters["data"] = data;
+                    }
                     
+                    if("message" in data){
+                        const toast = new Toast(color, data["message"]);
+                        toast.show()
+                    }
+
                     if (this.func != null) {
                         this.graphic = this.func(this.parameters);
                     }
 
-                    if(this.showAlert){
-                        const toast = new Toast(color, data["message"]);
-                        toast.show()
-                    }
+
                 }
 
             })
 
-            .catch(error =>{
+            .catch(error => {
                 console.error(error);
-                
+
                 const colorIcon = "#e81400";
                 const toast = new Toast(colorIcon, "No se puedo conectar con el servidor");
                 toast.show();

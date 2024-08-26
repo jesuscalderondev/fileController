@@ -61,8 +61,6 @@ function renderFiles(data) {
                     fallbackLink: "<p>This is a <a href='https://example.com/'>fallback link</a></p>"
 
                 };
-
-                // Embed the PDF (1.pdf) into the div with ID "example1" using PDFObject and the specified options
                 PDFObject.embed("getDocument/" + fileData.id + "/0", "#render", options);
 
                 myModal.show();
@@ -99,8 +97,7 @@ function renderFiles(data) {
 
             btnDown.addEventListener("click", () => {
                 window.open(`/routes/getDocument/${fileData.id}/1`)
-            });
-
+            });     
         }
 
         file.appendChild(actions);
@@ -109,7 +106,7 @@ function renderFiles(data) {
     });
 }
 
-const queryGetFiles = new Provider("routes/getFiles", null, button, "GET", renderFiles, false);
+const queryGetFiles = new Provider("routes/getFiles/1", null, null, "GET", renderFiles, false);
 queryGetFiles.operate();
 
 const notifications = document.getElementById("notifications");
