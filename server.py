@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from uuid import uuid4, UUID
 from abstracts.objects import Json
 from extensions import mailer, getBackUp, getWorkSpace
-
+import traceback
 load_dotenv()
 
 
@@ -129,6 +129,7 @@ def noEntrar():
 
         return "SIIIU"
     except Exception as e:
+        print(traceback.format_exc())
         return e
 
 @app.route("/test")

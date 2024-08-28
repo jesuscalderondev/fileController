@@ -14,8 +14,15 @@ echo "instalando las dependencias"
 :: Instalar dependencias (si es necesario)
 pip install -r requirements.txt
 
+rmdir files/
+rmdir backup/
+del databa
+
 echo "ejecutando el programa"
 :: Ejecutar aplicación Python
+
+python createSystem.py
+
 python server.py
 
 pause
