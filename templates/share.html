@@ -1,0 +1,29 @@
+{%extends 'template.html'%}
+{%block title%}Compartir{%endblock title%}
+{%block main%}
+<div class="container-fluid" id="files">
+    <form method="post" enctype="multipart/form-data" id="form">
+        <div class="row m-3">
+            Indique los correos electrónicos de las personas con quienes desea compartir el documento
+            <div class="mb-3">
+                <textarea id="emails" type="text" class="form-control"></textarea>
+            </div>
+        </div>
+
+        <div class="row m-3">
+            Mensaje o cuerpo del correo
+            <div class="mb-3">
+                <textarea id="message" type="text" class="form-control"></textarea>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success m-3" id="btnSub">Enviar <i class="bi bi-send-fill"></i></button>
+    </form>
+</div>
+{%endblock main%}
+{%block scripts%}
+<script>
+    const idFile = "{{idFile}}";
+</script>
+<script src="{{url_for('static', filename='js/share.js')}}"></script>
+{%endblock scripts%}

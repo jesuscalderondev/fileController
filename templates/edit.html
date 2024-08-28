@@ -1,0 +1,29 @@
+{%extends 'template.html'%}
+{%block title%}Actualizar{%endblock title%}
+{%block main%}
+<div class="container-fluid" id="files">
+    <form method="post" enctype="multipart/form-data" id="form">
+        <div class="row m-3">
+            Indique los correos electrónicos de las personas con quienes desea compartir el documento, una vez se encuentre actualizado:
+            <div class="mb-3">
+                <textarea name="emails" type="text" class="form-control"></textarea>
+            </div>
+        </div>
+
+        <div class="row m-3">
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Archivo (excel, word o pdf). Opcional</label>
+                <input class="form-control" type="file" id="formFile" name="file" accept=".xlsx, .xls, .docx, .doc, .pdf">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success m-3">Actualizar</button>
+    </form>
+</div>
+{%endblock main%}
+{%block scripts%}
+<script>
+    const idFile = "{{idFile}}";
+</script>
+<script src="{{url_for('static', filename='js/update.js')}}"></script>
+{%endblock scripts%}

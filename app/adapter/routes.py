@@ -135,3 +135,23 @@ def backArchive(fileId):
 @app.service.adminRequired
 def downloadHistory():
     return app.downloadHistory()
+
+@routes.route('update/<string:fileId>', methods = ['PUT'])
+@app.service.jwtRequired
+def update(fileId):
+    return EndPoint(app.update, [fileId, request]).response
+
+@routes.route('edit/<string:id>', methods = ['GET'])
+@app.service.adminRequired
+def edit(id):
+    return render_template('edit.html',  idFile = id)
+
+@routes.route('share/<string:id>', methods = ['GET'])
+@app.service.adminRequired
+def share(id):
+    return render_template('share.html',  idFile = id)
+
+@routes.route('share', methods = ['POST'])
+@app.service.jwtRequired
+def shareArchive():
+    return EndPoint(app.shareArchive, request).response

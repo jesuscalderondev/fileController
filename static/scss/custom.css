@@ -12028,7 +12028,7 @@ main {
   scrollbar-width: none;
 }
 
-.actions button {
+.actions button, .actions a {
   margin-left: 4px;
 }
 

@@ -15,14 +15,16 @@ loginBtn.addEventListener("click", () => {
         password: password
     }
 
-    function login(...parameters) {
-        const data = parameters[0].data;
-        if (data != null && data.hasOwnProperty("token")) {
-            sessionStorage.setItem("token", data.token);
+    function login(data) {
+        console.log(data);
+        
+        const response = data.data;
+        if (response != null && response.hasOwnProperty("token")) {
+            sessionStorage.setItem("token", response.token);
             window.location.href = "routes/home";
         }
         else {
-            const toast = new Toast("08f", data.message);
+            const toast = new Toast("08f", response.message);
             toast.show();
         }
     }

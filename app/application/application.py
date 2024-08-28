@@ -74,3 +74,6 @@ class Application():
     
     def downloadHistory(self):
         return self.service.downloadHistory()
+    
+    def shareArchive(self, request):
+        return FunctionControler.operate(self.service.shareArchive, [Json(request.get_json())])

@@ -35,7 +35,7 @@ function renderFiles(data) {
 
         const newConainer = document.createElement("div");
 
-        newConainer.setAttribute("class", "center-vertical col-10")
+        newConainer.setAttribute("class", "center-vertical col-8")
         file.appendChild(newConainer);
 
         const name = document.createElement("div");
@@ -45,7 +45,7 @@ function renderFiles(data) {
         newConainer.appendChild(name);
 
         const actions = document.createElement("div");
-        actions.setAttribute("class", "col-2 text-end actions");
+        actions.setAttribute("class", "col-4 text-end actions");
 
         if (fileData.see) {
             const btnSee = document.createElement("button");
@@ -70,10 +70,10 @@ function renderFiles(data) {
         }
 
         if (fileData.edit) {
-            const btnEdit = document.createElement("button");
+            const btnEdit = document.createElement("a");
             btnEdit.setAttribute("class", "btn btn-dark");
             btnEdit.innerHTML = `<i class="bi bi-pencil-fill"></i>`;
-
+            btnEdit.setAttribute("href", "/routes/edit/"+fileData.id)
             actions.appendChild(btnEdit);
         }
 
@@ -97,8 +97,20 @@ function renderFiles(data) {
 
             btnDown.addEventListener("click", () => {
                 window.open(`/routes/getDocument/${fileData.id}/1`)
-            });     
+            });
+
+            const btnShare = document.createElement("button");
+            btnShare.setAttribute("class", "btn btn-primary");
+            btnShare.innerHTML = `<i class="bi bi-share"></i>`;
+            actions.appendChild(btnShare);
+
+            btnShare.addEventListener("click", () => {
+                window.open(`/routes/share/${fileData.id}`)
+            });   
         }
+
+              
+
 
         file.appendChild(actions);
         files.appendChild(file);

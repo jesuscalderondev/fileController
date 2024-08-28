@@ -600,3 +600,26 @@ class appServices(Service):
     def downloadHistory(self):
         generator = ExcelGenerator(self.getLogs())
         return send_file(generator.generate(), as_attachment=True)
+    
+    def shareArchive(self, json:Json):
+        try:
+            user = self.session.get(User, self.getUser())
+            archive = self.session.get(File, UUID(json.fileId))
+            
+            
+            file = FileStorage(
+                filename=archive.route.split("/")[-1],
+                stream= open(f"{getWorkSpace()}{archive.route}", "rb")
+            )
+            
+            self.mail.sendMail({
+                "subject": "Archivo enviado desde AI-rchive",
+                "body": json.message,
+                "recipients": self.getMails(json.emails)
+            }, file)
+        
+            self.registerLog("Compartir", UUID(json.fileId))
+            return "Se ha compartido correctamente el archivo"
+        except:
+            print(traceback.format_exc())
+            raise Exception("No se pudo compartir")
