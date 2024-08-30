@@ -489,10 +489,10 @@ class appServices(Service):
                         self.session.commit()
                         os.remove(f"{getWorkSpace()}{archive.route}")
                         self.registerLog("Eliminar", archive.id)
-                        newNotifY.description = f"Se ha aprovado tu solicitud de creación referente al archivo {myRequest.nameFile}"
+                        newNotifY.description = f"Se ha aprobado la solicitud de creación referente al archivo {myRequest.nameFile}"
                         self.mail.sendMail({
                             "subject": "Solicitud reachazada",
-                            "body": f"Se ha aprovado tu solicitud de creación referente al archivo {myRequest.nameFile} y se realizaron las adecuaciones necesarias, algunos detalles: {json.details}",
+                            "body": f"Se ha aprobado la solicitud de creación referente al archivo {myRequest.nameFile} y se realizaron las adecuaciones necesarias, algunos detalles: {json.details}",
                             "recipients": self.getMails(myRequest.emails)
                         }, archive=file)
                     
@@ -503,10 +503,10 @@ class appServices(Service):
                         
                         file.seek(0)
                         file.filename = archive.route.split("/")[-1]
-                        newNotifY.description = f"Se ha aprovado tu solicitud de modificación referente al archivo {myRequest.nameFile}"
+                        newNotifY.description = f"Se ha aprobado la solicitud de modificación referente al archivo {myRequest.nameFile}"
                         self.mail.sendMail({
                             "subject": "Solicitud reachazada",
-                            "body": f"Se ha aprovado tu solicitud de modificación referente al archivo {myRequest.nameFile} y se realizaron las adecuaciones necesarias, algunos detalles: {json.details}",
+                            "body": f"Se ha aprobado la solicitud de modificación referente al archivo {myRequest.nameFile} y se realizaron las adecuaciones necesarias, algunos detalles: {json.details}",
                             "recipients": self.getMails(myRequest.emails)
                         }, archive=file)
                         
@@ -534,10 +534,10 @@ class appServices(Service):
                         
                         file.seek(0)
                         file.filename = archive.route.split("/")[-1]
-                        newNotifY.description = f"Se ha aprovado tu solicitud de reclasificación referente al archivo {myRequest.nameFile}"
+                        newNotifY.description = f"Se ha aprobado la solicitud de reclasificación referente al archivo {myRequest.nameFile}"
                         self.mail.sendMail({
                             "subject": "Solicitud aprovada",
-                            "body": f"Se ha aprovado tu solicitud de reclasificación referente al archivo {myRequest.nameFile} y se realizaron las adecuaciones necesarias, algunos detalles: {json.details}",
+                            "body": f"Se ha aprobado la solicitud de reclasificación referente al archivo {myRequest.nameFile} y se realizaron las adecuaciones necesarias, algunos detalles: {json.details}",
                             "recipients": self.getMails(myRequest.emails)
                         }, archive=file)
                         
@@ -557,7 +557,7 @@ class appServices(Service):
                     try:
                         self.mail.sendMail({
                             "subject": "Solicitud reachazada",
-                            "body": f"Se ha aprovado tu solicitud de creación referente al archivo {myRequest.nameFile} y se realizaron las adecuaciones necesarias, algunos detalles: {json.details}",
+                            "body": f"Se ha aprobado la solicitud de creación referente al archivo {myRequest.nameFile} y se realizaron las adecuaciones necesarias, algunos detalles: {json.details}",
                             "recipients": self.getMails(myRequest.emails)
                         }, archive=file)
                     except:

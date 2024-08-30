@@ -14,15 +14,11 @@ echo "instalando las dependencias"
 :: Instalar dependencias (si es necesario)
 pip install -r requirements.txt
 
-rmdir files/
-rmdir backup/
-del databa
+del files /s /q
+del backup /s /q
+del .\database.sqlite -y
 
 echo "ejecutando el programa"
 :: Ejecutar aplicación Python
 
-python createSystem.py
-
 python server.py
-
-pause
